@@ -1,5 +1,5 @@
 import numpy as np
-
+import math as math
 
 # %matplotlib inline
 
@@ -31,9 +31,9 @@ def calculateSecondTable(p, k, table):
 def calculateCoefficient(newtable):
     t1 = np.sum(newtable, axis=1)
     t2 = 1 / t1
-    C = int(round(np.sum(t2)))
+    C = np.sum(t2)
     c = list(map(lambda i: C / i, k))
-    return t1, t2, c
+    return t1, t2, c, C
 
 
 def getValues(m, c):
@@ -56,6 +56,7 @@ def A2(m, n, table, RealC):
         allmachine[index].update({j + 1: table[j][index]})
 
     outputResult(allmachine)
+    return(allmachine)
 
 def A1(m, n, table, RealC):
 
@@ -69,28 +70,40 @@ def A1(m, n, table, RealC):
         index = RealC.index(min(RealC))
         RealC[index] += table[j][index]
         allmachine[index].update({j + 1: table[j][index]})
-
     outputResult(allmachine)
+    return(allmachine)
 
 def outputResult(all):
     for i in range(len(all)):
         print('Machine ', i + 1, all[i])
 
+def findRandDelta(schedule, C, m):
+    r = [0] * m
+    delta = [0] * m
+    for i in range(0, m):
+        tmp = C - sum(schedule[i].values())
+        if tmp < 0:
+            delta[i] = math.fabs(tmp)
+        else:
+            r[i] = tmp
+    print(r)
+    print(delta)
+
+
+
 
 if __name__ == '__main__':
-    k = [1, 2,3,4,5]
+    k = [1, 1.3, 1.5, 2, 2.3, 2.5]
     m = len(k)
-    p = sorted([20,15,12,10,9,7,4,5,4,3,2,2,1,1])#, 9, 12, 15, 18, 21, 27, 40])
+    p = sorted([10, 9, 9, 8, 8, 7, 7, 7, 6, 6, 6, 6, 5, 5, 5, 4, 4, 3, 3, 2])
     p.reverse()
     n = len(p)
     print("n = {}\np = {}\nm = {}\nk = {}\n".format(n, p, m, k))
     table = calculateFirstTable(p, k)
     newtable = calculateSecondTable(p, k, table)
-    t1, t2, c = calculateCoefficient(newtable)
+    t1, t2, c, C = calculateCoefficient(newtable)
     RealC, f = getValues(m, c)
-    A1(m, n, table, RealC)
+    res1 = A1(m, n, table, RealC)
+    #outputResult(res1)
     RealC, f = getValues(m, c)
-    print()
-
-    A2(m,n,table,RealC)
-
+    res2 = A2(m,n,table,RealC)
