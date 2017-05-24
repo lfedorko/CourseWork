@@ -1,4 +1,3 @@
-import numpy as np
 from findValues import *
 from outputData import *
 
@@ -27,6 +26,7 @@ def calculate_second_table(p, k, table):
 
 
 def A1(m, n, table, RealC):
+    print('\n----------------------------------------------------------------')
     print('Algorithm 1')
     allmachine = []
     for i in range(0, m):
@@ -43,6 +43,7 @@ def A1(m, n, table, RealC):
 
 
 def A2(m, n, table, RealC, f, p):
+    print('\n----------------------------------------------------------------')
     print('Algorithm 2')
     allmachine = []
     for i in range(0, m):
@@ -54,24 +55,43 @@ def A2(m, n, table, RealC, f, p):
         RealC[index] += table[j][index]  # fill C
         f[index] -= p[j]
         allmachine[index].update({j + 1: table[j][index]})
-
     output_result_algorithm(allmachine)
     return allmachine
 
 
-def OptimizationAl1 (sigma, e,k, C):
-    print("Optimization # 1")
+def optimization2(k, c, sigma):
+    output = [0] * len(k)
+    T = [0] * len(k)
+    for i in range(len(k)):
+        T[i] = (c[i] - c[i] // 1) * k[i]
+    while int(sigma) > 0:
+        T_test = T.copy()
+        for i in range(len(k)):
+            T_test[i] -= k[i]
+
+        index = T_test.index(max(T_test))
+
+        T[index] -= k[index]
+        output[index] += 1
+        # print(sigma)
+        sigma -= 1
+    return output, T
+
+
+def optimization1(sigma, e, k, C):
     T = []
     for i in range(len(k)):
         T.append(round((C - k[i] * e[i]), 2))
-    #print("   T = {}" .format(T))
     Tq = T.copy()
     for i in range(len(k)):
         Tq[i] += k[i]
     x = [0] * len(k)
-    for i in range(sigma):
+    for i in range(int(sigma)):
         index = Tq.index(min(Tq))
         Tq[index] += k[index]
-        T[index] += k[index]
         x[index] += 1
-    print("T = {}\ne = {}\nx ={}\n".format(T,e,x))
+    for i in range(len(k)):
+        T[i] += x[i] * k[i]
+    p = [i - C for i in T]
+
+    return x, p

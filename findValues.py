@@ -39,12 +39,13 @@ def calculate_realC(c):
     return Ci
 
 
-def find_R_and_delta(schedule, c, m):
+def find_rand_delta(schedule, c, m):
     overfulfillment = []
     deficit = []
 
     for i in range(m):
         differenceFromReference = c - sum(schedule[i].values())
+
         if differenceFromReference < 0:
             deficit.append(abs(differenceFromReference))
             overfulfillment.append(0)
@@ -55,16 +56,7 @@ def find_R_and_delta(schedule, c, m):
     return overfulfillment, deficit
 
 
-def find_e_sigma(c):
-    sigma = 0
-    realC = 0
-    e = []
-    print(c)
-    for i in range(0, len(c)):
-        sigma += c[i] % 1
-        e.append(round(c[i] % 1, 2))
-        realC += c[i] // 1
-    sigma //= 1
-    sigma = int(sigma)
-    #print("sigma = {} ,   sum = {}, e = {}\n c = {}\n ".format(sigma, 120-realC, e, c))
-    return (sigma, e)
+def calculate_sigma(c):
+    e = [i % 1 for i in c]
+    sigma = sum(e)
+    return sigma, e
