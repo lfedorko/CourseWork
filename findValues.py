@@ -4,9 +4,9 @@ import numpy as np
 def calculate_coefficient(newtable, k):
     t1 = np.sum(newtable, axis=1)
     t2 = 1 / t1
-    C = int(round(np.sum(t2)))
+    C = np.sum(t2)
     c = list(map(lambda i: C / i, k))
-    return t1, t2, C,c
+    return t1, t2, C, c
 
 
 def get_values(m, c):
@@ -39,7 +39,7 @@ def calculate_realC(c):
     return Ci
 
 
-def find_rand_delta(schedule, c,m):
+def find_rand_delta(schedule, c, m):
     overfulfillment = []
     deficit = []
 
@@ -55,3 +55,8 @@ def find_rand_delta(schedule, c,m):
 
     return overfulfillment, deficit
 
+
+def calculate_sigma(c):
+    e = [i % 1 for i in c]
+    sigma = sum(e)
+    return sigma, e

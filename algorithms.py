@@ -1,4 +1,3 @@
-import numpy as np
 from findValues import *
 from outputData import *
 
@@ -57,3 +56,41 @@ def A2(m, n, table, RealC, f, p):
 
     output_result_algorithm(allmachine)
     return allmachine
+
+
+def optimization2(k, c, sigma):
+    output = [0] * len(k)
+    T = [0] * len(k)
+    for i in range(len(k)):
+        T[i] = (c[i] - c[i] // 1) * k[i]
+    while int(sigma) > 0:
+        T_test = T.copy()
+        for i in range(len(k)):
+            T_test[i] -= k[i]
+
+        index = T_test.index(max(T_test))
+
+        T[index] -= k[index]
+        output[index] += 1
+        # print(sigma)
+        sigma -= 1
+    return output, T
+
+
+def optimization1(sigma, e, k, C):
+    T = []
+    for i in range(len(k)):
+        T.append(round((C - k[i] * e[i]), 2))
+    Tq = T.copy()
+    for i in range(len(k)):
+        Tq[i] += k[i]
+    x = [0] * len(k)
+    for i in range(int(sigma)):
+        index = Tq.index(min(Tq))
+        Tq[index] += k[index]
+        x[index] += 1
+    for i in range(len(k)):
+        T[i] += x[i] * k[i]
+    p = [i - C for i in T]
+
+    return x, p
