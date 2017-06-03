@@ -64,11 +64,17 @@ def optimization2(k, e, sigma, C):
     for i in range(len(k)):
         T.append((C - k[i] * e[i]))
     print("T=", T)
-
+    opt = [0] * len(k)
+    x = [0] * len(k)
     while int(sigma) > 0:
-
+        for i in range(len(k)):
+            opt[i] = k[i]*(e[i] - x[i])
+        index = opt.index(max(opt))
+        x[index] += 1
+        T[index] += k[index]
         sigma -= 1
-    return output, T
+    print("MyX = ", x)
+    return x, T
 
 
 def optimization1(sigma, e, k, C):

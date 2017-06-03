@@ -36,5 +36,10 @@ if __name__ == '__main__':
     for i in range(len(k)):
         opt[i] = k[i]*(result21[i] - e[i])
     print("max(|k(x-e|) = {}".format(max(opt)))
+    print('Result first optimization: ', result21)
     result22, error2opt2 = optimization2(k, e, sigma, C)
-    print('Result second optimization: ', result21)
+    opt2 = [0] * len(k)
+
+    for i in range(len(k)):
+        opt2[i] = k[i] * (e[i] - result22[i])
+    print("max(|k(e-x|) = {}".format(max(list(map(abs,opt2)))))
