@@ -59,21 +59,14 @@ def A2(m, n, table, RealC, f, p):
     return allmachine
 
 
-def optimization2(k, c, sigma):
-    output = [0] * len(k)
-    T = [0] * len(k)
+def optimization2(k, e, sigma, C):
+    T = []
     for i in range(len(k)):
-        T[i] = (c[i] - c[i] // 1) * k[i]
+        T.append((C - k[i] * e[i]))
+    print("T=", T)
+
     while int(sigma) > 0:
-        T_test = T.copy()
-        for i in range(len(k)):
-            T_test[i] -= k[i]
 
-        index = T_test.index(max(T_test))
-
-        T[index] -= k[index]
-        output[index] += 1
-        # print(sigma)
         sigma -= 1
     return output, T
 
@@ -81,7 +74,8 @@ def optimization2(k, c, sigma):
 def optimization1(sigma, e, k, C):
     T = []
     for i in range(len(k)):
-        T.append(round((C - k[i] * e[i]), 2))
+        T.append((C - k[i] * e[i]))
+    print("T=", T)
     Tq = T.copy()
     for i in range(len(k)):
         Tq[i] += k[i]
