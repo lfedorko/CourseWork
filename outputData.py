@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from terminaltables import AsciiTable
-import fractions as Fraction
 
 
 def output_result_algorithm(result):
@@ -17,6 +16,9 @@ def output_result_values(use, overfulfillment, deficit):
     resultTable = list(zip( ['Machine'] + machine, ['Sum'] + use, ['R(i)'] + overfulfillment, ['Delta Δ(i)'] +deficit))
     table = AsciiTable(resultTable)
     print(table.table)
+
+
+
 
 def output_ideal(normvalue, k, C):
     print('------------------')
@@ -38,6 +40,35 @@ def output_ideal(normvalue, k, C):
     print('------------------')
     print(' Delta (Σe): ', sum(e), '|')
     print('------------------')
+
+def result_of_opt1(T, k, x, e):
+
+    xe = [0] * len(k)
+    kxe = [0] * len(k)
+    Tq = [0] * len(k)
+    for i in range(len(k)):
+        xe[i] = x[i] - e[i]
+        kxe[i] = k[i] * xe[i]
+        Tq[i] = T[i] + x[i]
+    print('max| (k(x-e)) | = {} ' .format(max(list(map(abs, kxe)))))
+    resultTable = list(zip(['T'] + T, ['Ki'] + k, ['x'] + x,  ['e'] + e, ['x - e'] +xe , ['k(x-e)'] + kxe, ['T*'] + Tq))
+    table = AsciiTable(resultTable)
+    print(table.table)
+
+def result_of_opt2(T, k, x, e):
+
+    xe = [0] * len(k)
+    kxe = [0] * len(k)
+    Tq = [0] * len(k)
+    for i in range(len(k)):
+        xe[i] = e[i] - x[i]
+        kxe[i] = k[i] * xe[i]
+        Tq[i] = T[i] + x[i]
+    print('max| (k(e - x)) | = {} ' .format(max(list(map(abs, kxe)))))
+    resultTable = list(zip(['T'] + T, ['Ki'] + k, ['x'] + x,  ['e'] + e, ['e - x'] +xe , ['k(e-x)'] + kxe, ['T*'] + Tq))
+    table = AsciiTable(resultTable)
+    print(table.table)
+
 
 
 def output_input_data(n, p, m, k):
@@ -74,7 +105,7 @@ def make_plot(data):
 
 
 
-    # print('key',npkey)
+
 
     width = 1
     bottom_size = [0] * data.shape[0]

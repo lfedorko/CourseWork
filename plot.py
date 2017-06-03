@@ -30,16 +30,7 @@ if __name__ == '__main__':
     overfulfillment, deficit = find_rand_delta(all2, C, m)
     output_result_values(use=use2, overfulfillment=overfulfillment, deficit=deficit)
     #make_plot(all2)
-
-    result21, error2opt1 = optimization1(sigma=sigma, e=e, k=k, C=C)
-    opt = [0] * len(k)
-    for i in range(len(k)):
-        opt[i] = k[i]*(result21[i] - e[i])
-    print("max(|k(x-e|) = {}".format(max(opt)))
-    print('Result first optimization: ', result21)
-    result22, error2opt2 = optimization2(k, e, sigma, C)
-    opt2 = [0] * len(k)
-
-    for i in range(len(k)):
-        opt2[i] = k[i] * (e[i] - result22[i])
-    print("max(|k(e-x|) = {}".format(max(list(map(abs,opt2)))))
+    x1, T = optimization1(sigma=sigma, e=e, k=k, C=C)
+    result_of_opt1(T, k, x1, e)
+    x2 = optimization2(k, e, sigma, C)
+    result_of_opt2(T, k, x2, e)

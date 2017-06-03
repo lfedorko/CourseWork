@@ -60,10 +60,11 @@ def A2(m, n, table, RealC, f, p):
 
 
 def optimization2(k, e, sigma, C):
+    print('\n----------------------------------------------------------------')
+    print('Second optimization')
     T = []
     for i in range(len(k)):
         T.append((C - k[i] * e[i]))
-    print("T=", T)
     opt = [0] * len(k)
     x = [0] * len(k)
     while int(sigma) > 0:
@@ -73,15 +74,17 @@ def optimization2(k, e, sigma, C):
         x[index] += 1
         T[index] += k[index]
         sigma -= 1
-    print("MyX = ", x)
-    return x, T
+    print("X = ", x)
+    return x
 
 
 def optimization1(sigma, e, k, C):
+    print('\n----------------------------------------------------------------')
+    print('First optimization')
     T = []
     for i in range(len(k)):
         T.append((C - k[i] * e[i]))
-    print("T=", T)
+    FirstT = T.copy()
     Tq = T.copy()
     for i in range(len(k)):
         Tq[i] += k[i]
@@ -92,6 +95,5 @@ def optimization1(sigma, e, k, C):
         x[index] += 1
     for i in range(len(k)):
         T[i] += x[i] * k[i]
-    p = [i - C for i in T]
-
-    return x, p
+    print("X = ", x)
+    return x,FirstT
