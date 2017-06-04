@@ -49,7 +49,7 @@ def result_of_opt1(T, k, x, e):
     for i in range(len(k)):
         xe[i] = x[i] - e[i]
         kxe[i] = k[i] * xe[i]
-        Tq[i] = T[i] + x[i]
+        Tq[i] = T[i] + x[i]*k[i]
     print('max| (k(x-e)) | = {} ' .format(max(list(map(abs, kxe)))))
     resultTable = list(zip(['T'] + T, ['Ki'] + k, ['x'] + x,  ['e'] + e, ['x - e'] +xe , ['k(x-e)'] + kxe, ['T*'] + Tq))
     table = AsciiTable(resultTable)
@@ -63,7 +63,7 @@ def result_of_opt2(T, k, x, e):
     for i in range(len(k)):
         xe[i] = e[i] - x[i]
         kxe[i] = k[i] * xe[i]
-        Tq[i] = T[i] + x[i]
+        Tq[i] = T[i] + k[i]*x[i]
     print('max| (k(e - x)) | = {} ' .format(max(list(map(abs, kxe)))))
     resultTable = list(zip(['T'] + T, ['Ki'] + k, ['x'] + x,  ['e'] + e, ['e - x'] +xe , ['k(e-x)'] + kxe, ['T*'] + Tq))
     table = AsciiTable(resultTable)
