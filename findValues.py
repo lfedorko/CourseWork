@@ -43,7 +43,7 @@ def find_rand_delta(schedule, c, m):
     overfulfillment = []
     deficit = []
 
-    for i in range(m):
+    for i in range(0,m):
         differenceFromReference = c - sum(schedule[i].values())
 
         if differenceFromReference < 0:

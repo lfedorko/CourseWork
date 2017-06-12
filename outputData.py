@@ -29,17 +29,17 @@ def output_ideal(normvalue, k, C):
         machine.append(i+1)
     int_c = []
     e = []
-    #fraction_e = []
     for i in normvalue:
         int_c.append(i //1)
         e.append(i % 1)
-        l =i % 1
+
+    print('------------------')
+    print(' Delta (Σe): ', sum(e))
+    print('------------------')
+
     resultTable = list(zip(['i'] + machine, ['Ki'] + k, ['Ci*'] + normvalue, ['[Ci*]'] + int_c, ['e']+ e))
     table = AsciiTable(resultTable)
     print(table.table)
-    print('------------------')
-    print(' Delta (Σe): ', sum(e), '|')
-    print('------------------')
 
 def result_of_opt1(T, k, x, e):
 
@@ -50,7 +50,7 @@ def result_of_opt1(T, k, x, e):
         xe[i] = x[i] - e[i]
         kxe[i] = k[i] * xe[i]
         Tq[i] = T[i] + x[i]*k[i]
-    print('max| (k(x-e)) | = {} ' .format(max(list(map(abs, kxe)))))
+    print('max(k(x-e)) = {} ' .format(max(kxe)))
     resultTable = list(zip(['T'] + T, ['Ki'] + k, ['x'] + x,  ['e'] + e, ['x - e'] +xe , ['k(x-e)'] + kxe, ['T*'] + Tq))
     table = AsciiTable(resultTable)
     print(table.table)

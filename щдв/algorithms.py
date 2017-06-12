@@ -25,7 +25,7 @@ def calculate_second_table(p, k, table):
     return newtable
 
 
-def A1(m, n, table, RealC):
+def A1(m, n, table, RealC, k):
     print('\n----------------------------------------------------------------')
     print('Algorithm 1')
     allmachine = []
@@ -42,7 +42,7 @@ def A1(m, n, table, RealC):
     return allmachine
 
 
-def A2(m, n, table, RealC, f, p):
+def A2(m, n, table, RealC, f, p, k):
     print('\n----------------------------------------------------------------')
     print('Algorithm 2')
     allmachine = []
@@ -56,6 +56,7 @@ def A2(m, n, table, RealC, f, p):
         f[index] -= p[j]
         allmachine[index].update({j + 1: table[j][index]})
     output_result_algorithm(allmachine)
+
     return allmachine
 
 
@@ -67,13 +68,17 @@ def optimization2(k, e, sigma, C):
         T.append((C - k[i] * e[i]))
     opt = [0] * len(k)
     x = [0] * len(k)
-    while int(sigma) > 0:
+    counter =0
+    sigma2 = round(sigma, 0)
+    print(int(sigma2))
+    for i in range(int(sigma2)):
         for i in range(len(k)):
             opt[i] = k[i]*(e[i] - x[i])
         index = opt.index(max(opt))
         x[index] += 1
         T[index] += k[index]
-        sigma -= 1
+        counter +=1
+    print(counter)
     print("X = ", x)
     return x
 
@@ -89,11 +94,18 @@ def optimization1(sigma, e, k, C):
     for i in range(len(k)):
         Tq[i] += k[i]
     x = [0] * len(k)
-    for i in range(int(sigma)):
+    sigma2 = round(sigma, 0)
+    print(int(sigma2))
+    for i in range(int(sigma2)):
         index = Tq.index(min(Tq))
         Tq[index] += k[index]
         x[index] += 1
     for i in range(len(k)):
         T[i] += x[i] * k[i]
     print("X = ", x)
-    return x,FirstT
+    return x, FirstT
+
+
+
+
+
