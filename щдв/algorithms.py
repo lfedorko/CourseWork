@@ -70,8 +70,9 @@ def optimization2(k, e, sigma, C):
     x = [0] * len(k)
     counter =0
     sigma2 = round(sigma, 0)
+    sigma2 = int(sigma2)
     print(int(sigma2))
-    for i in range(int(sigma2)):
+    for i in range(sigma2):
         for i in range(len(k)):
             opt[i] = k[i]*(e[i] - x[i])
         index = opt.index(max(opt))
@@ -96,7 +97,9 @@ def optimization1(sigma, e, k, C):
     x = [0] * len(k)
     sigma2 = round(sigma, 0)
     print(int(sigma2))
-    for i in range(int(sigma2)):
+    sigma2 = int(sigma2)
+    print(int(sigma2))
+    for i in range(sigma2):
         index = Tq.index(min(Tq))
         Tq[index] += k[index]
         x[index] += 1
